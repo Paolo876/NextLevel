@@ -1,3 +1,5 @@
+"use client"; //use this line when implementing client-side actions like react hooks
+
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
