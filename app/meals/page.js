@@ -1,10 +1,18 @@
 import MealsGrid from "@/components/meals/meals-grid";
+import MealsLoadingPage from "./loading";
 import classes from "./page.module.css"
 import Link from "next/link";
 import { getMeals } from "@/lib/meals";
+import { Suspense } from "react";       //
+
+
+const Meals = async () => {
+    const meals = await getMeals();     //async await no purpose, only for tutorial
+    return <MealsGrid meals={meals}/>
+}
+
 
 const MealsPage = async () => {
-    const meals = await getMeals();     //async await no purpose, only for tutorial
 
     return (
         <>
@@ -18,7 +26,9 @@ const MealsPage = async () => {
                 </p>
             </header>
             <main className={classes.main}>
-                <MealsGrid meals={meals}/>
+                <Suspense fallback={<MealsLoadingPage/>}>
+                    <Meals/>
+                </Suspense>
             </main>
         </>
     );
